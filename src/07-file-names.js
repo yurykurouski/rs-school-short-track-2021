@@ -13,8 +13,9 @@
  * the output should be ["file", "file(1)", "image", "file(1)(1)", "file(2)"]
  *
  */
-function renameFiles(names) {
-  const stack = [];
+function renameFiles(/* names */) {
+  throw new Error('Not implemented');
+/*   const stack = [];
 
   const result = [];
 
@@ -31,7 +32,7 @@ function renameFiles(names) {
     stack.push(names[i]);
   }
 
-  return result;
+  return result; */
 }
 
 module.exports = renameFiles;
