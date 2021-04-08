@@ -11,13 +11,10 @@
  *
  */
 function getSumOfDigits(n) {
-  let res = 0;
+  let res = n.toString().split('').reduce((acc, el) => acc + parseInt(el, 10), 0);
 
   if (n.toString().length > 1) {
-    const sum = n.toString().split('').reduce((acc, el) => acc + parseInt(el, 10), 0);
-    res = getSumOfDigits(sum);
-  } else {
-    res = n.toString().split('').reduce((acc, el) => acc + parseInt(el, 10), 0);
+    res = getSumOfDigits(res);
   }
 
   return res;
