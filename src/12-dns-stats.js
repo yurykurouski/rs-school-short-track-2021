@@ -20,8 +20,33 @@
  * }
  *
  */
-function getDNSStats(/* domains */) {
-  throw new Error('Not implemented');
+function getDNSStats(domains) {
+  let result = {};
+
+  if (domains.length === 0) return result;
+
+  domains.forEach((el) => {
+    const firstLDomain = el.match(/.\w+$/)[0];
+
+    const secondLDomain = el.replace(firstLDomain, '').match(/\w+$/)[0];
+
+    result = {
+      ...result,
+      [firstLDomain]: result[firstLDomain] ? result[firstLDomain] + 1 : 1,
+      [`${firstLDomain}.${secondLDomain}`]: result[`${firstLDomain}.${secondLDomain}`] ? result[`${firstLDomain}.${secondLDomain}`] + 1 : 1,
+    };
+
+    if (el.replace(`${secondLDomain}${firstLDomain}`, '')) {
+      const thirdLDomain = el.replace(`${secondLDomain}${firstLDomain}`, '').match(/^\w+/)[0];
+
+      result = {
+        ...result,
+        [`${firstLDomain}.${secondLDomain}.${thirdLDomain}`]: result[`${firstLDomain}.${secondLDomain}.${thirdLDomain}`] ? [`${firstLDomain}.${secondLDomain}.${thirdLDomain}`] + 1 : 1,
+      };
+    }
+  });
+
+  return result;
 }
 
 module.exports = getDNSStats;
